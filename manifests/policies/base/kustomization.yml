@@ -27,4 +27,5 @@ resources:
   - policyset-baseline-cluster-config.yml
   - policyset-compliance-policies.yml
 #  - policyset-nvidia-gpu-policies.yml
+  - policyset-patch-cluster-config.yml
 #  - policyset-security-policies.yml
