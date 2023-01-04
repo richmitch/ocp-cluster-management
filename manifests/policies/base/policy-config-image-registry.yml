@@ -32,16 +32,3 @@ spec:
               name: cluster
             spec:
               defaultRoute: true
----
-apiVersion: policy.open-cluster-management.io/v1
-kind: PlacementBinding
-metadata:
-  name: binding-configure-image-registry
-placementRef:
-  name: all-stores
-  kind: PlacementRule
-  apiGroup: apps.open-cluster-management.io
-subjects:
-- name: configure-image-registry
-  kind: Policy
-  apiGroup: policy.open-cluster-management.io
