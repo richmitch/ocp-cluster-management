@@ -1,7 +1,7 @@
 apiVersion: app.k8s.io/v1beta1 
 kind: Application   
 metadata:     
-  name: compliance-operator
+  name: rh-pipelines-operator
   namespace: applications  
 spec:
   componentKinds:   
@@ -12,7 +12,7 @@ spec:
     - key: app  
       operator: In  
       values:   
-      - pipelines-operator 
+      - rh-pipelines-operator 
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription  
@@ -24,23 +24,23 @@ metadata:
    apps.open-cluster-management.io/git-path: manifests/operators/pipelines/overlays/latest
    apps.open-cluster-management.io/reconcile-option: replace
  labels:
-   app: pipelines-operator
-   app.kubernetes.io/part-of: pipelines-operator    
- name: pipelines-operator-subscription-1     
+   app: rh-pipelines-operator
+   app.kubernetes.io/part-of: rh-pipelines-operator    
+ name: rh-pipelines-operator-subscription-1     
  namespace: applications
 spec:    
  channel: ggithubcom-richmitch-ocp-cluster-management-ns/ggithubcom-richmitch-ocp-cluster-management 
  placement:   
    placementRef:     
      kind: PlacementRule
-     name: pipelines-operator-placement-1
+     name: rh-pipelines-operator-placement-1
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule   
 metadata:     
  labels:     
-   app: pipelines-operator  
- name: pipelines-operator-placement-1
+   app: rh-pipelines-operator  
+ name: rh-pipelines-operator-placement-1
  namespace: applications     
 spec:
  clusterSelector:    
