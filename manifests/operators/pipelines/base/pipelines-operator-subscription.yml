@@ -7,6 +7,6 @@ metadata:
 spec:
   channel: patched-in-overlay
   name: openshift-pipelines-operator-rh
-  installPlanApproval: Manual
+  installPlanApproval: Automatic
   source: redhat-operators
   sourceNamespace: openshift-marketplace
