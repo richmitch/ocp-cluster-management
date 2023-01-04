@@ -1,0 +1,46 @@
+apiVersion: batch/v1             
+kind: CronJob     
+metadata:         
+  name: camera-check      
+spec:
+  schedule: '*/1 * * * *'            
+  concurrencyPolicy: Forbid      
+  successfulJobsHistoryLimit: 3  
+  suspend: false  
+  jobTemplate:    
+    metadata:        
+    spec:         
+      template:   
+        metadata: 
+        spec:     
+          containers:            
+          - env:  
+            - name: USER         
+              value: analytic    
+            - name: PASSWORD     
+              value: '!Poc1234'  
+            - name: PORT         
+              value: "554"       
+            - name: CHANNEL      
+              value: "1"         
+            - name: ES           
+              value: localhost   
+            - name: IP           
+              value: "10.47.208.92"
+            image: image-registry.openshift-image-registry.svc:5000/openshift/camera-check
+            imagePullPolicy: Always             
+            name: camera-check   
+            terminationMessagePath: /dev/termination-log       
+            terminationMessagePolicy: File      
+            volumeMounts:        
+            - mountPath: /data   
+              name: data         
+          dnsPolicy: ClusterFirst
+          restartPolicy: OnFailure              
+          schedulerName: default-scheduler      
+          terminationGracePeriodSeconds: 30     
+          volumes:
+          - name: data           
+            persistentVolumeClaim:              
+              claimName: data    
+ 

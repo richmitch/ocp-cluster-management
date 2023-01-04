@@ -1,0 +1,24 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: baseline-cluster-config
+spec:
+  description: "Policies that ensure the baseline configuration of clusters"
+  policies:
+    - add-chrony-master
+    - add-timezone-sydney-master
+    - set-cluster-proxy
+    - set-openshift-cluster-version
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-baseline-cluster-config
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  name: all-clusters
+  kind: PlacementRule
+subjects:
+  - name: baseline-cluster-config
+    apiGroup: policy.open-cluster-management.io
+    kind: PolicySet

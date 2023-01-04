@@ -1,0 +1,156 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: stable-diffusion
+  namespace: stable-diffusion
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: stable-diffusion
+subjects:
+  - kind: ServiceAccount
+    name: stable-diffusion
+    namespace: stable-diffusion
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: 'system:openshift:scc:privileged'
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: sd-auto
+    app.kubernetes.io/component: sd-auto
+    app.kubernetes.io/instance: sd-auto
+  name: sd-auto
+  namespace: stable-diffusion
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations:
+      openshift.io/imported-from: quay.io/eformat/sd-auto:14-02
+    from:
+      kind: DockerImage
+      name: quay.io/eformat/sd-auto:14-02
+    importPolicy: {}
+    name: 14-02
+    referencePolicy:
+      type: Source
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  labels:
+    app: sd-auto
+    app.kubernetes.io/component: sd-auto
+    app.kubernetes.io/instance: sd-auto
+  name: sd-auto
+  namespace: stable-diffusion
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: 7860-tcp
+    port: 7860
+    protocol: TCP
+    targetPort: 7860
+  selector:
+    deployment: sd-auto
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  labels:
+    app: sd-auto
+    app.kubernetes.io/component: sd-auto
+    app.kubernetes.io/instance: sd-auto
+  name: sd-auto
+  namespace: stable-diffusion
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      deployment: sd-auto
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        deployment: sd-auto
+    spec:
+      containers:
+      - image: quay.io/eformat/sd-auto:14-02
+        env:
+          - name: http_proxy
+            value: http://app-proxy.woolworths.com.au:80
+          - name: https_proxy
+            value: http://app-proxy.woolworths.com.au:80
+          - name: HTTP_PROXY
+            value: http://app-proxy.woolworths.com.au:80
+          - name: HTTPS_PROXY
+            value: http://app-proxy.woolworths.com.au:80
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: true
+          privileged: true
+        name: sd-auto
+        ports:
+        - containerPort: 7860
+          protocol: TCP
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      serviceAccountName: stable-diffusion
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: stable-diffusion-data
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  name: stable-diffusion
+  namespace: stable-diffusion
+spec:
+  port:
+    targetPort: 7860
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: sd-auto
+    weight: 100
+  wildcardPolicy: None

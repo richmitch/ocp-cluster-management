@@ -1,0 +1,59 @@
+apiVersion: app.k8s.io/v1beta1 
+kind: Application   
+metadata:
+  annotations:  
+    apps.open-cluster-management.io/deployables: ""  
+#    apps.open-cluster-management.io/subscriptions: applications/compliance-operator-subscription-1,applications/compliance-operator-subscription-1-local
+    open-cluster-management.io/user-group: c3lzdGVtOnNlcnZpY2VhY2NvdW50cyxzeXN0ZW06c2VydmljZWFjY291bnRzOm9wZW4tY2x1c3Rlci1tYW5hZ2VtZW50LHN5c3RlbTphdXRoZW50aWNhdGVk
+    open-cluster-management.io/user-identity: c3lzdGVtOnNlcnZpY2VhY2NvdW50Om9wZW4tY2x1c3Rlci1tYW5hZ2VtZW50Om11bHRpY2x1c3Rlci1hcHBsaWNhdGlvbnM=      
+  name: rhacs-operator
+  namespace: applications  
+spec:
+  componentKinds:   
+  - group: apps.open-cluster-management.io
+    kind: Subscription     
+  selector:     
+    matchExpressions:      
+    - key: app  
+      operator: In  
+      values:   
+      - rhacs-operator 
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription  
+metadata:
+ annotations: 
+   apps.open-cluster-management.io/cluster-admin: "true" 
+   apps.open-cluster-management.io/git-branch: main      
+   apps.open-cluster-management.io/git-path: manifests/operators/rhacs/overlays/rhacs-3.72
+   apps.open-cluster-management.io/reconcile-option: replace
+   open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=   
+   open-cluster-management.io/user-identity: cmljaGFyZA==
+ labels:
+   app: rhacs-operator
+   app.kubernetes.io/part-of: rhacs-operator    
+   apps.open-cluster-management.io/reconcile-rate: medium
+ name: rhacs-operator-subscription-1     
+ namespace: applications
+spec:    
+ channel: gonsultingredhatcom-woolworths-group-stores-openshift-poc-ns/gonsultingredhatcom-woolworths-group-stores-openshift-poc 
+ placement:   
+   placementRef:     
+     kind: PlacementRule
+     name: rhacs-operator-placement-1
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule   
+metadata:     
+ annotations:
+   open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+   open-cluster-management.io/user-identity: cmljaGFyZA==
+ labels:     
+   app: rhacs-operator  
+ name: rhacs-operator-placement-1
+ namespace: applications     
+spec:
+ clusterSelector:    
+   matchLabels:      
+     vendor: OpenShift
+

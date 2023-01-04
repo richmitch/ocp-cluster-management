@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: camera-check
+
+#commonAnnotations:
+#  argocd.argoproj.io/sync-wave: "0"
+
+resources:
+  - camera-check-app-cronjob.yml
+  - camera-check-app-imagestream.yml
+  - camera-check-app-namespace.yml
+  - camera-check-app-pvc.yml

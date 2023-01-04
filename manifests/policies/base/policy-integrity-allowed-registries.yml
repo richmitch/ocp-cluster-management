@@ -1,0 +1,43 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: allowed-registries
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: SI System and Information Integrity
+    policy.open-cluster-management.io/controls: SI-4 Information System Monitoring, Rolling Restart - All  # None, Control, Compute, All
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: allowed-registries
+        spec:
+          remediationAction: inform
+          severity: low
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: config.openshift.io/v1
+                kind: Image
+                metadata:
+                  annotations:
+                    release.openshift.io/create-only: "true"
+                  name: cluster
+                spec:
+                  registrySources:
+                    allowedRegistries:
+                      - registry.redhat.io
+                      - registry.access.redhat.com
+                      - registry.connect.redhat.com 
+                      - quay.io
+                      - image-registry.openshift-image-registry.svc:5000
+

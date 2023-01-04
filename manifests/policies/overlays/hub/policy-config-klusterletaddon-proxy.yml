@@ -1,0 +1,60 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: set-klusterletaddon-proxy-hub
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, Rolling Restart - All  # None, Control, Compute, All
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: set-klusterletaddon-proxy-hub
+      spec:
+        remediationAction: inform
+        severity: high
+        namespaceSelector:
+          exclude:
+          - kube-*
+          include:
+          - default
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: agent.open-cluster-management.io/v1
+            kind: KlusterletAddonConfig
+            metadata:
+              name: local-cluster
+              namespace: local-cluster
+            spec:
+              applicationManager:
+                enabled: true
+                proxyPolicy: CustomProxy
+              policyController:
+                enabled: true
+                proxyPolicy: OCPGlobalProxy
+              proxyConfig:
+                httpProxy: http://app-proxy.woolworths.com.au:80
+                httpsProxy: http://app-proxy.woolworths.com.au:80
+                noProxy: .cluster.local,.svc,.stores.wowcorp.com.au,100.100.0.0/14,100.104.0.0/14,10.48.194.0/24
+              searchCollector:
+                enabled: true
+                proxyPolicy: CustomProxy
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-set-klusterletaddon-proxy-hub
+placementRef:
+  name: hub-cluster
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: set-klusterletaddon-proxy-hub
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

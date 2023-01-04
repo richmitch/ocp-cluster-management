@@ -1,0 +1,28 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: compliance-policies
+spec:
+  description: "Policies that ensure clusters meet Compliance requirements"
+  policies:
+    - no-wildcard-roles
+    - remove-self-provisioner
+    - cis-remediation-masters
+    - cis-scan-common
+    - cis-scan-node
+    - cis-scan-platform
+    - allowed-registries
+    - encrypt-etcd
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-compliance-policies
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  name: all-clusters
+  kind: PlacementRule
+subjects:
+  - name: compliance-policies
+    apiGroup: policy.open-cluster-management.io
+    kind: PolicySet

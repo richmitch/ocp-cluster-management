@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"santa-message:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"santa-message\")].image"}]'
+    openshift.io/generated-by: OpenShiftNewApp
+  labels:  
+    app: santa-message
+    app.kubernetes.io/component: santa-message
+    app.kubernetes.io/instance: santa-message
+  name: santa-message
+  namespace: santa-message
+spec:
+  progressDeadlineSeconds: 600
+  replicas: patched-in-overlays
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      deployment: santa-message
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        deployment: santa-message
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/santa-message/nginx
+        imagePullPolicy: IfNotPresent
+        name: santa-message
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30

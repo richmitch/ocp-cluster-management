@@ -1,0 +1,43 @@
+---
+apiVersion: build.openshift.io/v1 
+kind: BuildConfig
+metadata:
+  labels:
+    app: nginx
+    app.kubernetes.io/component: nginx
+    app.kubernetes.io/instance: nginx
+  name: nginx
+  namespace: nginx
+spec:  
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: santa-message:latest
+  runPolicy: Serial
+  source:
+    contextDir: manifests/applications/santa-message
+    git:
+      ref: main
+      uri: https://gitlab.consulting.redhat.com/woolworths-group/stores-openshift-poc
+    sourceSecret:
+      name: gitlab-secret
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: nginx:1.20-ubi8
+        namespace: openshift
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - github:
+      secret: 2Xg_nP5e1wJRw06cZxH9
+    type: GitHub
+  - generic:
+      secret: NFSgTh54oY0xCAQn2PFc
+    type: Generic
+  - type: ConfigChange
+  - type: ImageChange

@@ -1,0 +1,9 @@
+apiVersion: fileintegrity.openshift.io/v1alpha1
+kind: FileIntegrity
+metadata:
+  name: master-fileintegrity
+  namespace: openshift-file-integrity
+spec:
+  config: {}
+  nodeSelector:
+      node-role.kubernetes.io/master: ""

@@ -1,0 +1,129 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: create-rhacs-operands-hub
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CA Security Assessment and Authorization
+    policy.open-cluster-management.io/controls: CA-2 Security Assessments, CA-7 Continuous Monitoring, Rolling Restart - None  # None, Control, Compute, All
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: create-rhacs-central
+      spec:
+        remediationAction: inform
+        severity: high
+        namespaceSelector:
+          exclude:
+          - kube-*
+          include:
+          - stackrox
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: platform.stackrox.io/v1alpha1
+            kind: Central
+            metadata:
+              name: stackrox-central-services
+              namespace: stackrox
+            spec:
+              central:
+                nodeSelector:
+                exposure:
+                  loadBalancer:
+                    enabled: false
+                  nodePort:
+                    enabled: false
+                  route:
+                    enabled: true
+                persistence:
+                  persistentVolumeClaim:
+                    claimName: stackrox-db
+                    size: 50Gi
+                resources:
+                  limits:
+                    cpu: 2000m
+                    memory: 2Gi
+                  requests:
+                    cpu: 1500m
+                    memory: 2Gi
+                tolerations:
+              egress:
+                connectivityPolicy: Online
+              scanner:
+                analyzer:
+                  nodeSelector:
+                  scaling:
+                    autoScaling: Enabled
+                    maxReplicas: 3
+                    minReplicas: 1
+                    replicas: 1
+                  tolerations:
+                db:
+                  nodeSelector:
+                  tolerations:
+                scannerComponent: Enabled
+#  - objectDefinition:
+#     apiVersion: policy.open-cluster-management.io/v1
+#     kind: ConfigurationPolicy
+#     metadata:
+#       name: create-rhacs-secured-hub
+#     spec:
+#       remediationAction: inform
+#       severity: high
+#       namespaceSelector:
+#         exclude:
+#         - kube-*
+#         include:
+#         - stackrox
+#       object-templates:
+#       - complianceType: musthave
+#         objectDefinition:
+#           apiVersion: platform.stackrox.io/v1alpha1
+#           kind: SecuredCluster
+#           metadata:
+#             name: stackrox-secured-cluster-services
+#             namespace: stackrox
+#           spec:
+#             admissionControl:
+#               bypass: BreakGlassAnnotation
+#               contactImageScanners: DoNotScanInline
+#               listenOnCreates: true
+#               listenOnEvents: true
+#               listenOnUpdates: true
+#               timeoutSeconds: 3
+#             auditLogs:
+#               collection: Auto
+#             centralEndpoint: central.stackrox.svc.cluster.local:443
+#             clusterName: management-cluster
+#             customize:
+#               envVars:
+#               - name: GRPC_SERVER
+#                 value: sensor.stackrox.svc.cluster.local:443
+#               - name: ROX_ADVERTISED_ENDPOINT
+#                 value: sensor.stackrox.svc.cluster.local:443
+#               - name: ROX_SENSOR_ENDPOINT
+#                 value: sensor.stackrox.svc.cluster.local:443
+#             perNode:
+#               collector:
+#                 collection: KernelModule
+#                 imageFlavor: Regular
+#               taintToleration: TolerateTaints
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-create-rhacs-operands-hub
+placementRef:
+  name: hub-cluster
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: create-rhacs-operands-hub
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

@@ -1,0 +1,75 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule   
+metadata:     
+ annotations:
+   open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+   open-cluster-management.io/user-identity: cmljaGFyZA==
+ #labels:     
+ #  app: camera-check  
+ name: app-placement-1339-top-ryde
+ namespace: applications     
+spec:
+ clusterSelector:    
+   matchLabels:      
+     cluster.open-cluster-management.io/clusterset: 1339-top-ryde
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule   
+metadata:     
+ annotations:
+   open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+   open-cluster-management.io/user-identity: cmljaGFyZA==
+# labels:     
+#   app: camera-check  
+ name: app-placement-1262-glenrose
+ namespace: applications     
+spec:
+ clusterSelector:    
+   matchLabels:      
+     cluster.open-cluster-management.io/clusterset: 1262-glenrose
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule   
+metadata:     
+ annotations:
+   open-cluster-management.io/user-group: c3lzdGVtOmF1dGhnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+   open-cluster-management.io/user-identity: cmljaGFyZA==
+# labels:     
+#   app: santa-message  
+ name: app-placement-staging
+ namespace: applications   
+spec:
+  clusterSelector:    
+    matchLabels:
+      local-cluster: 'true'
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule   
+metadata:     
+ annotations:
+   open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+   open-cluster-management.io/user-identity: cmljaGFyZA==
+# labels:     
+#   app: camera-check  
+ name: app-placement-all-stores
+ namespace: applications     
+spec:
+ clusterSelector:    
+   matchLabels:      
+     clusterType: store
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule   
+metadata:     
+ annotations:
+   open-cluster-management.io/user-group: c3lzdGVtOmF1dGhlbnRpY2F0ZWQ6b2F1dGgsc3lzdGVtOmF1dGhlbnRpY2F0ZWQ=
+   open-cluster-management.io/user-identity: cmljaGFyZA==
+# labels:     
+#   app: camera-check  
+ name: app-placement-none
+ namespace: applications     
+spec:
+ clusterSelector:    
+   matchLabels:      
+     clusterType: none

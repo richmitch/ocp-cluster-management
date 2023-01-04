@@ -1,0 +1,39 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: set-cluster-proxy
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, Rolling Restart - All  # None, Control, Compute, All
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: set-cluster-proxy
+      spec:
+        remediationAction: inform
+        severity: low
+        namespaceSelector:
+          exclude:
+          - kube-*
+          include:
+          - default
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: config.openshift.io/v1
+            kind: Proxy
+            metadata:
+              name: cluster
+            spec:
+              httpProxy: http://app-proxy.woolworths.com.au:80                                                                                                        
+              httpsProxy: http://app-proxy.woolworths.com.au:80                                                                                                       
+              noProxy: .woolworths.com.au,.stores.wowcorp.com.au,100.100.0.0/14,100.104.0.0/14,10.48.194.0/24
+              trustedCA:
+                name: ""
+

@@ -1,0 +1,13 @@
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: santa-message
+    app.kubernetes.io/component: santa-message
+    app.kubernetes.io/instance: santa-message
+  name: santa-message
+  namespace: santa-message
+spec:
+  lookupPolicy:
+    local: false

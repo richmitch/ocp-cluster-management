@@ -1,0 +1,21 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: security-policies
+spec:
+  description: "Policies that ensure clusters meet Security requirements"
+  policies:
+    - create-stackrox-namespace
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-security-policies
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  name: all-clusters
+  kind: PlacementRule
+subjects:
+  - name: security-policies
+    apiGroup: policy.open-cluster-management.io
+    kind: PolicySet

@@ -1,0 +1,50 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: stable-diffusion
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: stable-diffusion-data
+  namespace: stable-diffusion
+  labels:
+    type: local
+spec:
+  resources:
+    requests:
+      storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: download
+  namespace: stable-diffusion
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      serviceAccount: default
+      serviceAccountName: default
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: stable-diffusion-data
+      containers:
+      - name: job
+        env:
+          - name: all_proxy
+            value: http://app-proxy.woolworths.com.au:80
+        image: "quay.io/eformat/stable-diffusion-create-data:latest"
+        imagePullPolicy: Always
+        command:
+          - /bin/bash
+          - -c
+          - /download/download.sh
+        volumeMounts:
+        - mountPath: /download/data
+          name: data

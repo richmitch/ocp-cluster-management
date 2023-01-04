@@ -1,0 +1,2 @@
+# Stores OpenShift POC
+

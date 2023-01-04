@@ -1,0 +1,93 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: cis-remediation-masters
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CA Security Assessment and Authorization
+    policy.open-cluster-management.io/controls: CA-2 Security Assessments, CA-7 Continuous Monitoring, Rolling Restart - Control  # None, Control, Compute, All
+spec:
+  disabled: false
+  remediationAction: inform
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: kubelet-config-master
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: machineconfiguration.openshift.io/v1
+                kind: KubeletConfig
+                metadata:
+                  name: kubelet-config-master
+                spec:
+                  machineConfigPoolSelector:
+                    matchLabels:
+                      pools.operator.machineconfiguration.openshift.io/master: ""
+                  kubeletConfig:
+                    tlsCipherSuites:
+                    - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+                    - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+                    - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+                    - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+                    evictionSoft:
+                      memory.available: "500Mi"
+                      nodefs.available: "10%"
+                      nodefs.inodesFree: "5%"
+                      imagefs.available: "15%"
+                      imagefs.inodesFree: "10%"
+                    evictionSoftGracePeriod:
+                      memory.available: "1m30s"
+                      nodefs.available: "1m30s"
+                      nodefs.inodesFree: "1m30s"
+                      imagefs.available: "1m30s"
+                      imagefs.inodesFree: "1m30s"
+                    evictionHard:
+                      memory.available: "200Mi"
+                      nodefs.available: "5%"
+                      nodefs.inodesFree: "4%"
+                      imagefs.available: "10%"
+                      imagefs.inodesFree: "5%"
+                    makeIPTablesUtilChains: true
+                    eventRecordQPS: 5
+                    ProtectKernelDefaults: true
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: machineconfig-master-kubelet-sysctls
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: machineconfiguration.openshift.io/v1
+                kind: MachineConfig
+                metadata:
+                  labels:
+                    machineconfiguration.openshift.io/role: master
+                  name: 75-master-kubelet-sysctls
+                spec:
+                  config:
+                    ignition:
+                      version: 3.2.0
+                    storage:
+                      files:
+                      - contents:
+                          source: data:,vm.overcommit_memory%3D1%0Avm.panic_on_oom%3D0%0Akernel.panic%3D10%0Akernel.panic_on_oops%3D1%0Akernel.keys.root_maxkeys%3D1000000%0Akernel.keys.root_maxbytes%3D25000000%0A
+                        mode: 420
+                        path: /etc/sysctl.d/90-kubelet.conf
+                        overwrite: true
+

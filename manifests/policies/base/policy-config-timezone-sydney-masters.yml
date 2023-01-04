@@ -1,0 +1,63 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: add-timezone-sydney-master
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, Rolling Restart - Control  # None, Control, Compute, All
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: add-timezone-sydney-master
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: machineconfiguration.openshift.io/v1
+                kind: MachineConfig
+                metadata:
+                  name: 99-master-custom-timezone-configuration
+                  labels:
+                    machineconfiguration.openshift.io/role: master
+                spec:
+                  config:
+                    ignition:
+                      config: {}
+                      security:
+                        tls: {}
+                      timeouts: {}
+                      version: 3.2.0
+                    networkd: {}
+                    passwd: {}
+                    storage: {}
+                    systemd:
+                      units:
+                      - contents: |
+                          [Unit]
+                          Description=set timezone
+                          After=network-online.target
+                
+                          [Service]
+                          Type=oneshot
+                          ExecStart=timedatectl set-timezone Australia/Sydney
+                
+                          [Install]
+                          WantedBy=multi-user.target
+                        enabled: true
+                        name: custom-timezone.service
+                  osImageURL: ""
+          remediationAction: inform
+          severity: low
+
+

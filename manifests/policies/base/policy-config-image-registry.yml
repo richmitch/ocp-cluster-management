@@ -1,0 +1,47 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: configure-image-registry
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, Rolling Restart - None  # None, Control, Compute, All
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: enable-default-route
+      spec:
+        remediationAction: inform
+        severity: low
+        namespaceSelector:
+          exclude:
+          - kube-*
+          include:
+          - default
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: imageregistry.operator.openshift.io/v1
+            kind: Config
+            metadata:
+              name: cluster
+            spec:
+              defaultRoute: true
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-configure-image-registry
+placementRef:
+  name: all-stores
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: configure-image-registry
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

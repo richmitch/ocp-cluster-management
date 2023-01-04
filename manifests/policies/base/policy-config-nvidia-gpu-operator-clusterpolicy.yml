@@ -1,0 +1,115 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: nvidia-gpu-operator-clusterpolicy
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, Rolling Restart - None  # None, Control, Compute, All
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: create-timeslicing-configmap
+      spec:
+        remediationAction: inform
+        severity: high
+        object-templates:
+          - complianceType: mustonlyhave
+            objectDefinition:
+              apiVersion: v1
+              kind: ConfigMap                   
+              metadata:
+                name: time-slicing-config       
+              data:    
+                tesla-t4: |-                    
+                  version: v1                   
+                  sharing:                      
+                    timeSlicing:                
+                      resources:                
+                      - name: nvidia.com/gpu    
+                        replicas: 8             
+              immutable: false  
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: create-clusterpolicy
+        spec:
+          remediationAction: inform
+          severity: high
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: nvidia.com/v1
+                kind: ClusterPolicy
+                metadata:
+                  name: gpu-cluster-policy
+                spec:
+                  dcgm:
+                    enabled: true
+                  dcgmExporter:
+                    config:
+                      name: "console-plugin-nvidia-gpu"
+                    enabled: true
+                    serviceMonitor:
+                      enabled: true
+                  devicePlugin:
+                    config:
+                      default: "tesla-t4"
+                      name: "time-slicing-config"
+                    enabled: true
+                  driver:
+                    certConfig:
+                      name: ""
+                    enabled: true
+                    kernelModuleConfig:
+                      name: ""
+                    licensingConfig:
+                      configMapName: ""
+                      nlsEnabled: false
+                    repoConfig:
+                      configMapName: ""
+                    rollingUpdate:
+                      maxUnavailable: "1"
+                    virtualTopology:
+                      config: ""
+                  gfd:
+                    enabled: true
+                  mig:
+                    strategy: single
+                  migManager:
+                    enabled: true
+                  nodeStatusExporter:
+                    enabled: true
+                  operator:
+                    defaultRuntime: crio
+                    runtimeClass: nvidia
+                    use_ocp_driver_toolkit: true
+                  sandboxDevicePlugin:
+                    enabled: true
+                  sandboxWorkloads:
+                    defaultWorkload: container
+                    enabled: false
+                  toolkit:
+                    enabled: true
+                    installDir: /usr/local/nvidia
+                  validator:
+                    plugin:
+                      env:
+                      - name: WITH_WORKLOAD
+                        value: "true"
+                  vfioManager:
+                    enabled: true
+                  vgpuDeviceManager:
+                    config:
+                      default: default
+                    enabled: true
+                  vgpuManager:
+                    enabled: true
+
+

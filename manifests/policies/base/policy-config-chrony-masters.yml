@@ -1,0 +1,49 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: add-chrony-master
+  annotations:
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration, Rolling Restart - Control  # None, Control, Compute, All
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: add-chrony-master
+        spec:
+          namespaceSelector:
+            exclude:
+              - kube-*
+            include:
+              - default
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: machineconfiguration.openshift.io/v1
+                kind: MachineConfig
+                metadata:
+                  name: 99-master-chrony-configuration
+                  labels:
+                    machineconfiguration.openshift.io/role: master
+                spec:
+                  config:
+                    ignition:
+                      version: 3.2.0
+                    storage:
+                      files:
+                        - contents:
+                            source: >-
+                              data:text/plain;charset=utf-8;base64,IyBVc2UgcHVibGljIHNlcnZlcnMgZnJvbSB0aGUgcG9vbC5udHAub3JnIHByb2plY3QuCiMgUGxlYXNlIGNvbnNpZGVyIGpvaW5pbmcgdGhlIHBvb2wgKGh0dHA6Ly93d3cucG9vbC5udHAub3JnL2pvaW4uaHRtbCkuCiMgcG9vbCAyLnJoZWwucG9vbC5udHAub3JnIGlidXJzdApzZXJ2ZXIgd3d0aW1lc3J2MS53b29sd29ydGhzLmNvbS5hdSBpYnVyc3QKc2VydmVyIHd3dGltZXNydjIud29vbHdvcnRocy5jb20uYXUgaWJ1cnN0CgojIFJlY29yZCB0aGUgcmF0ZSBhdCB3aGljaCB0aGUgc3lzdGVtIGNsb2NrIGdhaW5zL2xvc3NlcyB0aW1lLgpkcmlmdGZpbGUgL3Zhci9saWIvY2hyb255L2RyaWZ0CgojIEFsbG93IHRoZSBzeXN0ZW0gY2xvY2sgdG8gYmUgc3RlcHBlZCBpbiB0aGUgZmlyc3QgdGhyZWUgdXBkYXRlcwojIGlmIGl0cyBvZmZzZXQgaXMgbGFyZ2VyIHRoYW4gMSBzZWNvbmQuCm1ha2VzdGVwIDEuMCAzCgojIEVuYWJsZSBrZXJuZWwgc3luY2hyb25pemF0aW9uIG9mIHRoZSByZWFsLXRpbWUgY2xvY2sgKFJUQykuCnJ0Y3N5bmMKCiMgRW5hYmxlIGhhcmR3YXJlIHRpbWVzdGFtcGluZyBvbiBhbGwgaW50ZXJmYWNlcyB0aGF0IHN1cHBvcnQgaXQuCiNod3RpbWVzdGFtcCAqCgojIEluY3JlYXNlIHRoZSBtaW5pbXVtIG51bWJlciBvZiBzZWxlY3RhYmxlIHNvdXJjZXMgcmVxdWlyZWQgdG8gYWRqdXN0CiMgdGhlIHN5c3RlbSBjbG9jay4KI21pbnNvdXJjZXMgMgoKIyBBbGxvdyBOVFAgY2xpZW50IGFjY2VzcyBmcm9tIGxvY2FsIG5ldHdvcmsuCiNhbGxvdyAxOTIuMTY4LjAuMC8xNgoKIyBTZXJ2ZSB0aW1lIGV2ZW4gaWYgbm90IHN5bmNocm9uaXplZCB0byBhIHRpbWUgc291cmNlLgojbG9jYWwgc3RyYXR1bSAxMAoKIyBTcGVjaWZ5IGZpbGUgY29udGFpbmluZyBrZXlzIGZvciBOVFAgYXV0aGVudGljYXRpb24uCmtleWZpbGUgL2V0Yy9jaHJvbnkua2V5cwoKIyBHZXQgVEFJLVVUQyBvZmZzZXQgYW5kIGxlYXAgc2Vjb25kcyBmcm9tIHRoZSBzeXN0ZW0gdHogZGF0YWJhc2UuCmxlYXBzZWN0eiByaWdodC9VVEMKCiMgU3BlY2lmeSBkaXJlY3RvcnkgZm9yIGxvZyBmaWxlcy4KbG9nZGlyIC92YXIvbG9nL2Nocm9ueQoKIyBTZWxlY3Qgd2hpY2ggaW5mb3JtYXRpb24gaXMgbG9nZ2VkLgojbG9nIG1lYXN1cmVtZW50cyBzdGF0aXN0aWNzIHRyYWNraW5nCg==
+                            verification: {}
+                          filesystem: root
+                          mode: 420
+                          path: /etc/chrony.conf
+                  osImageURL: ''
+          remediationAction: inform
+          severity: low
+

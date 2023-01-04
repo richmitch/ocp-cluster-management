@@ -1,0 +1,23 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: nvidia-gpu-config
+spec:
+  description: "Policies needed to prepare the clusters for GPU sharing"
+  policies:
+    - configure-gpu-iommu
+    - nfd-operator-instance
+    - nvidia-gpu-operator-clusterpolicy
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-nvidia-gpu-config
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  name: all-stores
+  kind: PlacementRule
+subjects:
+  - name: nvidia-gpu-config
+    apiGroup: policy.open-cluster-management.io
+    kind: PolicySet

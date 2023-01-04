@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: policies
+
+resources:
+  - placement-all-clusters.yml
+  - placement-all-stores.yml
+  - policy-access-no-wildcard-roles.yml
+  - policy-access-remove-self-provisioner.yml
+  - policy-compliance-cis-remediation-masters.yml
+  - policy-compliance-cis-scan-common.yml
+  - policy-compliance-cis-scan-nodes.yml
+  - policy-compliance-cis-scan-platform.yml
+  - policy-config-chrony-masters.yml
+  - policy-config-cluster-proxy.yml
+  - policy-config-gpu-iommu.yml
+  - policy-config-image-registry.yml
+  - policy-config-nfd-operator-instance.yml
+  - policy-config-nvidia-gpu-operator-clusterpolicy.yml
+  - policy-config-schedulable-masters.yml
+  - policy-config-set-cluster-version.yml
+  - policy-config-timezone-sydney-masters.yml
+  - policy-integrity-allowed-registries.yml
+  - policy-security-encrypt-etcd.yml
+  - policy-security-stackrox-namespace.yml
+  - policyset-baseline-cluster-config.yml
+  - policyset-compliance-policies.yml
+  - policyset-nvidia-gpu-policies.yml
+  - policyset-security-policies.yml

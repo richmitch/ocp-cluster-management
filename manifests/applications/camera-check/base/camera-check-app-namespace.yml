@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: camera-check
+  annotations:
+    openshift.io/description: Captures a single JPEG image from a camera
+    openshift.io/display-name: FFMPEG Capture Camera Image
