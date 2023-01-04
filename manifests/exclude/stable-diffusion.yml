@@ -36,7 +36,7 @@ metadata:
  name: stable-diffusion-app-subscription-1     
  namespace: applications
 spec:    
- channel: gonsultingredhatcom-woolworths-group-stores-openshift-poc-ns/gonsultingredhatcom-woolworths-group-stores-openshift-poc 
+ channel: ggithubcom-richmitch-ocp-cluster-management-ns/ggithubcom-richmitch-ocp-cluster-management 
  placement:   
    placementRef:     
      kind: PlacementRule
@@ -59,7 +59,7 @@ metadata:
  name: stable-diffusion-data-subscription-1     
  namespace: applications
 spec:    
- channel: gonsultingredhatcom-woolworths-group-stores-openshift-poc-ns/gonsultingredhatcom-woolworths-group-stores-openshift-poc 
+ channel: ggithubcom-richmitch-ocp-cluster-management-ns/ggithubcom-richmitch-ocp-cluster-management 
  placement:   
    placementRef:     
      kind: PlacementRule

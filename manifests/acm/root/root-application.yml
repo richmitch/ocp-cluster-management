@@ -36,7 +36,7 @@ metadata:
   name: root-application-subscription-1
   namespace: applications     
 spec:    
-  channel: gonsultingredhatcom-woolworths-group-stores-openshift-poc-ns/gonsultingredhatcom-woolworths-group-stores-openshift-poc      
+  channel: ggithubcom-richmitch-ocp-cluster-management-ns/ggithubcom-richmitch-ocp-cluster-management      
   placement:    
     placementRef:      
       kind: PlacementRule     
