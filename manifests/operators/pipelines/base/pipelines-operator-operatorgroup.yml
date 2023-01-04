@@ -5,5 +5,4 @@ metadata:
   name: global-operators
   namespace: openshift-operators
 spec:
-  targetNamespaces:
-    - openshift-operators
+# Cannot target its own namespace so targetNamespace removed
