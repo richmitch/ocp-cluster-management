@@ -21,6 +21,7 @@ resources:
   - policy-config-set-cluster-version.yml
   - policy-config-timezone-sydney-masters.yml
   - policy-integrity-allowed-registries.yml
+  - policy-integrity-patch-samples-operator.yml
   - policy-security-encrypt-etcd.yml
 #  - policy-security-stackrox-namespace.yml
   - policyset-baseline-cluster-config.yml

@@ -1,0 +1,21 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: patch-cluster-config
+spec:
+  description: "Policies that apply temporary patches to clusters"
+  policies:
+    - rh-solution-6547281-patch-samples-operator
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-baseline-cluster-config
+placementRef:
+  apiGroup: apps.open-cluster-management.io
+  name: all-clusters
+  kind: PlacementRule
+subjects:
+  - name: baseline-cluster-config
+    apiGroup: policy.open-cluster-management.io
+    kind: PolicySet
