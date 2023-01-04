@@ -10,12 +10,12 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-baseline-cluster-config
+  name: binding-patch-cluster-config
 placementRef:
   apiGroup: apps.open-cluster-management.io
   name: all-clusters
   kind: PlacementRule
 subjects:
-  - name: baseline-cluster-config
+  - name: patch-cluster-config
     apiGroup: policy.open-cluster-management.io
     kind: PolicySet
