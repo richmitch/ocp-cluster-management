@@ -7,10 +7,10 @@ spec:
   policies:
     - no-wildcard-roles
     - remove-self-provisioner
-    - cis-remediation-masters
-    - cis-scan-common
-    - cis-scan-node
-    - cis-scan-platform
+#    - cis-remediation-masters
+#    - cis-scan-common
+#    - cis-scan-node
+#    - cis-scan-platform
     - allowed-registries
     - encrypt-etcd
 ---

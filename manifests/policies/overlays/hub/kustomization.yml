@@ -5,10 +5,9 @@ namespace: policies
 
 bases: 
   - ../../base
-  - ../../stores
 
 resources:
   - placement-hub-cluster.yml
-  - policy-config-klusterletaddon-proxy.yml
-  - policy-security-rhacs-operands.yml
+#  - policy-config-klusterletaddon-proxy.yml
+#  - policy-security-rhacs-operands.yml
 #  - deploy-to-default.yml
