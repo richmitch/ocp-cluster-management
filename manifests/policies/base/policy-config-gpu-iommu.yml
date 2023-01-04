@@ -19,7 +19,7 @@ spec:
           remediationAction: inform
           severity: high
           object-templates:
-            - complianceType: musthave
+            - complianceType: mustonlyhave
               objectDefinition:
                 apiVersion: machineconfiguration.openshift.io/v1
                 kind: MachineConfig
