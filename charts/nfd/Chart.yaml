@@ -3,7 +3,8 @@ name: nfd
 description: Installs the Red Hat NFD Operator
 type: application
 version: 0.0.1
-
+maintainers:
+  - name: richmitch
 dependencies:
 - name: operator
   version: 0.0.1
