@@ -9,7 +9,10 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
+    app: "{{ .Chart.Name }}"
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
   name: {{ $ns.name }} 
 {{- end }}
 {{- end }}
