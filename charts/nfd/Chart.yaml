@@ -8,4 +8,4 @@ maintainers:
 dependencies:
 - name: operator
   version: 0.0.1
-  repository: https://github.com/richmitch/ocp-cluster-management/charts/library/operator
+  repository: file://../library/operator
