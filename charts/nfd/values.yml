@@ -1,0 +1,17 @@
+# Default values for operatorhub.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+operators:
+  - name: nfd
+    namespace:
+      create: true
+      name: openshift-nfd
+    subscription:
+      channel: stable
+      approval: Automatic
+      operatorName: nfd
+      sourceName: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
