@@ -1,1 +1,1 @@
-{{- template "library.operator.namespace" }}
+{{- include "library.operator.namespace" (list . "nfd.namespace") -}}
