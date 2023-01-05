@@ -9,10 +9,7 @@ apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   labels:
-    app: "{{ .Chart.Name }}"
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
-    heritage: "{{ .Release.Service }}"
   name: {{ $op.name }} 
   namespace: {{ $op.namespace.name }}
 spec:
