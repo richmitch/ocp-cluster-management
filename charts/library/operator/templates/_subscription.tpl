@@ -8,7 +8,7 @@ kind: Subscription
 metadata:
   labels:
 #    app: "{{ .Chart.Name }}"
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+#    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
   name: {{ $op.name }}
