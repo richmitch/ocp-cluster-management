@@ -1,1 +1,1 @@
-{{- template "library.operator.operatorgroup" }}
+{{- include "library.operator.operatorgroup" $ -}}
