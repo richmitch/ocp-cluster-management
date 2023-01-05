@@ -1,5 +1,5 @@
 apiVersion: v2
-name: operators
+name: operator
 description: A library Helm chart for OpenShift Operator installation
 type: library
 version: 0.0.1
