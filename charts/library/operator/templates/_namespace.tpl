@@ -1,4 +1,4 @@
-{{- define "library.operator.namespace.tpl" -}}
+{{- define "library.operator.namespace" -}}
 {{- if .Values.operators }}
 {{- range $op := .Values.operators }}
 {{- if $op.namespace }}

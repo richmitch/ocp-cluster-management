@@ -1,4 +1,4 @@
-{{- define "library.operator.subscription.tpl" -}}
+{{- define "library.operator.subscription" -}}
 {{- if .Values.operators }}
 {{- range $op := .Values.operators }}
 {{- $sub := $op.subscription }}

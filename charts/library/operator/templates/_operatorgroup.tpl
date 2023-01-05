@@ -1,4 +1,4 @@
-{{- define "library.operator.operatorgroup.tpl" -}}
+{{- define "library.operator.operatorgroup" -}}
 {{- if .Values.operators }}
 {{- range $op := .Values.operators }}
 {{- if $op.operatorgroup }}
