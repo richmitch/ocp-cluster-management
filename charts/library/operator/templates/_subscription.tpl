@@ -1,6 +1,6 @@
 {{- define "library.operator.subscription" -}}
 {{- $app := .Chart.Name }}
-{{- $chart := .Chart.Name-.Chart.Version }}
+{{- $chart := cat .Chart.Name "-" .Chart.Version }}
 {{- $release := .Release.Name }}
 {{- $heritage := .Release.Service }}
 {{- if .Values.operators }}
