@@ -1,0 +1,22 @@
+{{- define "library.operator.subscription.tpl" -}}
+{{- if .Values.operators }}
+{{- range $op := .Values.operators }}
+{{- $sub := $op.subscription }}
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: {{ $op.name | quote }}
+  namespace: {{ $op.namespace.name | quote }}
+spec:
+  channel: {{ $sub.channel | quote }} 
+  installPlanApproval: {{ $sub.approval | default "Automatic" | quote }}
+  name: {{ $sub.operatorName | quote }}
+  source: {{ $sub.sourceName | default "redhat-operators" | quote }}
+  sourceNamespace: {{ $sub.sourceNamespace | default "openshift-marketplace" | quote }}
+{{- if $sub.csv }}
+  startingCSV: {{ $sub.csv | quote }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
