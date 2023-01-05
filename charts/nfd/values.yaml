@@ -11,3 +11,15 @@ operators:
       sourceNamespace: openshift-marketplace
     operatorgroup:
       create: true
+  - name: nfd2
+    namespace:
+      create: true
+      name: openshift-nfd2
+    subscription:
+      channel: stable
+      approval: Automatic
+      operatorName: nfd2
+      sourceName: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
