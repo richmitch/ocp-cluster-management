@@ -1,4 +1,8 @@
 {{- define "library.operator.subscription" -}}
+{{- $app := .Chart.Name }}
+{{- $chart := .Chart.Name-.Chart.Version }}
+{{- $release := .Release.Name }}
+{{- $heritage := .Release.Service }}
 {{- if .Values.operators }}
 {{- range $op := .Values.operators }}
 {{- $sub := $op.subscription }}
@@ -7,10 +11,10 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
   labels:
-    app: "{{ .Chart.Name }}"
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: "{{ .Release.Name }}"
-    heritage: "{{ .Release.Service }}"
+    app: $app
+    chart: $chart
+    release: $release
+    heritage: $heritage
   name: {{ $op.name }}
   namespace: {{ $op.namespace.name }}
 spec:
