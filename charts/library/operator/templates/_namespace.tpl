@@ -1,6 +1,6 @@
 {{- define "library.operator.namespace" -}}
 {{- $app := .Chart.Name }}
-{{- $chart = print .Chart.Name "-" .Chart.Version }}
+{{- $chart := print .Chart.Name "-" .Chart.Version }}
 {{- $release := .Release.Name }}
 {{- $heritage := .Release.Service }}
 {{- if .Values.operators }}
