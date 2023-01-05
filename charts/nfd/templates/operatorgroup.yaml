@@ -1,4 +1,3 @@
-{{- define "library.operator.operatorgroup.tpl" -}}
 {{- if .Values.operators }}
 {{- range $op := .Values.operators }}
 {{- if $op.operatorgroup }}
@@ -19,7 +18,6 @@ spec:
   targetNamespaces:
   - {{ $op.namespace.name }}
   {{- end }}
-{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}

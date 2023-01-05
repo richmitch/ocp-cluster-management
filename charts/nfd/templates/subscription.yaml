@@ -1,4 +1,3 @@
-{{- define "library.operator.subscription.tpl" -}}
 {{- if .Values.operators }}
 {{- range $op := .Values.operators }}
 {{- $sub := $op.subscription }}
@@ -16,7 +15,6 @@ spec:
   sourceNamespace: {{ $sub.sourceNamespace | default "openshift-marketplace" | quote }}
 {{- if $sub.csv }}
   startingCSV: {{ $sub.csv | quote }}
-{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
