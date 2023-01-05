@@ -1,1 +1,1 @@
-{{- include "library.operator.subscription" }}
+{{- template "library.operator.subscription" }}
