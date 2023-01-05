@@ -13,10 +13,10 @@ apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   labels:
-    app: $app
-    chart: $chart
-    release: $release
-    heritage: $heritage
+    app: {{ $app }}
+    chart: {{ $chart }}
+    release: {{ $release }}
+    heritage: {{ $heritage }}
   name: {{ $op.name }} 
   namespace: {{ $op.namespace.name }}
 spec:

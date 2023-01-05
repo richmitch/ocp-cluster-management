@@ -13,10 +13,10 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    app: $app
-    chart: $chart
-    release: $release
-    heritage: $heritage
+    app: {{ $app }}
+    chart: {{ $chart }}
+    release: {{ $release }}
+    heritage: {{ $heritage }}
   name: {{ $ns.name }} 
 {{- end }}
 {{- end }}
