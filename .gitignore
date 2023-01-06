@@ -1,4 +1,3 @@
 # ignore helm files
-*.tgz
 *.lock
 
