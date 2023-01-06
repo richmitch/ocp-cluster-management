@@ -12,11 +12,7 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  labels:
-    app: {{ $app }}
-    chart: {{ $chart }}
-    release: {{ $release }}
-    heritage: {{ $heritage }}
+{{- include "default.labels" $ | indent 2 }}
   name: {{ $op.name }} 
   namespace: {{ $op.namespace.name }}
 spec:

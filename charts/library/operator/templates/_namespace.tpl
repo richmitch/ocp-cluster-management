@@ -12,11 +12,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  labels:
-    app: {{ $app }}
-    chart: {{ $chart }}
-    release: {{ $release }}
-    heritage: {{ $heritage }}
+{{- include "default.labels" $ | indent 2 }}
   name: {{ $ns.name }} 
 {{- end }}
 {{- end }}

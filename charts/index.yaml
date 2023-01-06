@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   nfd:
   - apiVersion: v2
-    created: "2023-01-06T13:33:40.522598+11:00"
+    created: "2023-01-06T14:28:03.944119+11:00"
     dependencies:
     - name: operator
       repository: file://../library/operator
@@ -16,4 +16,18 @@ entries:
     urls:
     - https://github.com/richmitch/ocp-cluster-management/nfd-0.0.1.tgz
     version: 0.0.1
-generated: "2023-01-06T13:33:40.521908+11:00"
+  operator:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-01-06T14:28:03.944378+11:00"
+    description: A library Helm chart for OpenShift Operator installation
+    digest: daf09a9309ce61b36cfe47804ef5a4fdc5b04209088b1265db2fdb8dc813de58
+    home: https://github.com/richmitch/ocp-cluster-management/charts
+    maintainers:
+    - name: richmitch
+    name: operator
+    type: library
+    urls:
+    - https://github.com/richmitch/ocp-cluster-management/operator-0.0.1.tgz
+    version: 0.0.1
+generated: "2023-01-06T14:28:03.943461+11:00"
