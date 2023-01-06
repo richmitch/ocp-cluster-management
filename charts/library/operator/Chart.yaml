@@ -2,7 +2,7 @@ apiVersion: v2
 name: operator
 description: A library Helm chart for OpenShift Operator installation
 type: library
-version: 0.1.0
+version: 0.2.0
 appVersion: latest
 home: https://github.com/richmitch/ocp-cluster-management/charts
 maintainers:

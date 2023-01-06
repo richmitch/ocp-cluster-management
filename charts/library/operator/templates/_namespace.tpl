@@ -8,7 +8,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-{{- include "default.labels" $ | indent 2 }}
+{{- include "operator.labels" $ | indent 2 }}
   name: {{ $ns.name }} 
 {{- end }}
 {{- end }}

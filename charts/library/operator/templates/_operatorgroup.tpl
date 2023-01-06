@@ -8,7 +8,7 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-{{- include "default.labels" $ | indent 2 }}
+{{- include "operator.labels" $ | indent 2 }}
   name: {{ $op.name }} 
   namespace: {{ $op.namespace.name }}
 spec:
