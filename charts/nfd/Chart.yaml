@@ -7,5 +7,5 @@ maintainers:
   - name: richmitch
 dependencies:
 - name: operator
-  version: 0.0.2
+  version: 0.1.0
   repository: file://../library/operator
