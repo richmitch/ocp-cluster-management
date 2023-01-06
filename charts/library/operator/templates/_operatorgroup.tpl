@@ -1,8 +1,4 @@
 {{- define "library.operator.operatorgroup" -}}
-{{- $app := .Chart.Name }}
-{{- $chart := print .Chart.Name "-" .Chart.Version }}
-{{- $release := .Release.Name }}
-{{- $heritage := .Release.Service }}
 {{- if .Values.operators }}
 {{- range $op := .Values.operators }}
 {{- if $op.operatorgroup }}
