@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   nfd:
   - apiVersion: v2
-    created: "2023-01-09T10:10:10.266223+11:00"
+    created: "2023-01-09T10:26:06.612758+11:00"
     dependencies:
     - name: operator
       repository: https://richmitch.github.io/ocp-cluster-management/charts/
@@ -19,7 +19,7 @@ entries:
   operator:
   - apiVersion: v2
     appVersion: latest
-    created: "2023-01-09T10:10:10.266897+11:00"
+    created: "2023-01-09T10:26:06.613426+11:00"
     description: A library Helm chart for OpenShift Operator installation
     digest: b55f7efd4d3589f7bd25c41b5fbfb818fd71954ec572f8bd3d476db06a6e712e
     home: https://github.com/richmitch/ocp-cluster-management/charts
@@ -30,4 +30,4 @@ entries:
     urls:
     - https://richmitch.github.io/ocp-cluster-management/charts/operator-0.2.0.tgz
     version: 0.2.0
-generated: "2023-01-09T10:10:10.265036+11:00"
+generated: "2023-01-09T10:26:06.61162+11:00"

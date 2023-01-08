@@ -1,0 +1,1 @@
+helm repo index charts/ --url https://richmitch.github.io/ocp-cluster-management/charts/
