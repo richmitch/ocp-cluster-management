@@ -2,10 +2,10 @@ apiVersion: v2
 name: nfd
 description: Installs the Red Hat NFD Operator
 type: application
-version: 0.2.0
+version: 0.3.0
 maintainers:
   - name: richmitch
 dependencies:
 - name: operator
-  version: 0.2.0
+  version: 0..0
   repository: https://richmitch.github.io/ocp-cluster-management/charts/
