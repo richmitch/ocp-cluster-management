@@ -1,8 +1,8 @@
 apiVersion: v2
-name: nfd
-description: Installs the Red Hat NFD Operator
+name: operatorhub
+description: Helper application for installing operators from OperatorHub
 type: application
-version: 0.3.0
+version: 0.1.0
 maintainers:
   - name: richmitch
 dependencies:

@@ -1,0 +1,13 @@
+apiVersion: v2
+name: cluster
+description: Day 2 configuration of a cluster
+type: application
+version: 0.0.1
+maintainers:
+  - name: richmitch
+dependencies:
+- name: operatorhub
+  version: 0.1.0
+#  repository: https://richmitch.github.io/ocp-cluster-management/charts/
+  repository: file://../operatorhub/
+  condition: opertorhub.enabled
