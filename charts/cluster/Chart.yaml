@@ -8,6 +8,6 @@ maintainers:
 dependencies:
 - name: operatorhub
   version: 0.1.0
-#  repository: https://richmitch.github.io/ocp-cluster-management/charts/
-  repository: file://../operatorhub/
+  repository: https://richmitch.github.io/ocp-cluster-management/charts/
+#  repository: file://../operatorhub/
   condition: opertorhub.enabled
