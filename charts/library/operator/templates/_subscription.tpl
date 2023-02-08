@@ -3,7 +3,7 @@
 {{- range $op := .Values.operators }}
 {{- $sub := $op.subscription }}
 ---
-apiVersion: operators.coreos.com/v1alpha1
+apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
 metadata:
 {{- include "operator.labels" $ | indent 2 }}
