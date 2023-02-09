@@ -2,7 +2,7 @@ operators:
   - name: gitops
     namespace:
       create: true
-      name: openshift-operators
+      name: openshift-gitops
     subscription:
       channel: stable
       approval: Automatic
