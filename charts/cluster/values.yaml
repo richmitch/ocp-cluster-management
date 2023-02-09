@@ -1,15 +1,18 @@
-operatorhub:
-  enabled: true
-  operators:
-    - name: nfd
-      namespace:
-        create: true
-        name: openshift-nfd
-      subscription:
-        channel: stable
-        approval: Automatic
-        operatorName: nfd
-        sourceName: redhat-operators
-        sourceNamespace: openshift-marketplace
-      operatorgroup:
-        create: true
+operators:
+  - name: nfd
+    namespace:
+      create: true
+      name: openshift-nfd
+    subscription:
+      channel: stable
+      approval: Automatic
+      operatorName: nfd
+      sourceName: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+
+operands:
+  - name: nfd-instance
+    namespace: openshift-nfd
+    kind: NodeFeatureDiscovery
