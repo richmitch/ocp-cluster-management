@@ -6,7 +6,7 @@ entries:
     dependencies:
     - name: operator
       repository: https://richmitch.github.io/ocp-cluster-management/charts/
-      version: 0..0
+      version: 0.2.0
     description: Installs the Red Hat GitOps Operator
     digest: c42bdc6b19b502215594bcc5295edb7485f651f91e25bd9cfa77b9283b5f9fe8
     maintainers:
@@ -22,7 +22,7 @@ entries:
     dependencies:
     - name: operator
       repository: https://richmitch.github.io/ocp-cluster-management/charts/
-      version: 0..0
+      version: 0.2.0
     description: Installs the Red Hat NFD Operator
     digest: 4d747e738775aec94dacd12dbd3c354185f36882a4aad5d1e3e7eecd2acbb20f
     maintainers:
