@@ -2,7 +2,7 @@ operators:
   - name: nmstate
     namespace:
       create: true
-      name: openshift-operators
+      name: openshift-nmstate
     subscription:
       channel: stable
       approval: Automatic
