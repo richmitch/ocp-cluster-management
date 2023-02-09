@@ -1,0 +1,11 @@
+apiVersion: v2
+name: gitops
+description: Installs the Red Hat GitOps Operator
+type: application
+version: 0.1.0
+maintainers:
+  - name: richmitch
+dependencies:
+- name: operator
+  version: 0.2.0
+  repository: https://richmitch.github.io/ocp-cluster-management/charts/

@@ -1,0 +1,18 @@
+operators:
+  - name: gitops
+    namespace:
+      create: true
+      name: openshift-gitops
+    subscription:
+      channel: stable
+      approval: Automatic
+      operatorName: openshift-gitops-operator
+      sourceName: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
+
+#operands:
+#  - name: argocd-instance
+#    namespace: openshift-gitops
+#@    kind: ArgoCD
