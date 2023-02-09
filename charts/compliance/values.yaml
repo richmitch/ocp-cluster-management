@@ -4,7 +4,7 @@ operators:
       create: true
       name: openshift-compliance
     subscription:
-      channel: stable
+      channel: 4.7
       approval: Automatic
       operatorName: compliance-operator
       sourceName: redhat-operators
