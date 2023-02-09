@@ -6,8 +6,15 @@ version: 0.0.1
 maintainers:
   - name: richmitch
 dependencies:
-- name: operatorhub
+- name: nfd
+  version: 0.3.0
+  repository: https://richmitch.github.io/ocp-cluster-management/charts/
+- name: nmstate
+  version: 0.1.1
+  repository: https://richmitch.github.io/ocp-cluster-management/charts/
+- name: gitops
   version: 0.1.0
   repository: https://richmitch.github.io/ocp-cluster-management/charts/
-#  repository: file://../operatorhub/
-  condition: opertorhub.enabled
+- name: compliance
+  version: 0.1.1
+  repository: https://richmitch.github.io/ocp-cluster-management/charts/
