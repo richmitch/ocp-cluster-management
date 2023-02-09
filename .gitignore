@@ -1,3 +1,4 @@
 # ignore helm files
 *.lock
+.DS_Store
 
