@@ -1,8 +1,33 @@
 apiVersion: v1
 entries:
+  cluster:
+  - apiVersion: v2
+    created: "2023-02-10T10:32:11.502137+11:00"
+    dependencies:
+    - name: nfd
+      repository: https://richmitch.github.io/ocp-cluster-management/charts/
+      version: 0.3.0
+    - name: nmstate
+      repository: https://richmitch.github.io/ocp-cluster-management/charts/
+      version: 0.1.1
+    - name: gitops
+      repository: https://richmitch.github.io/ocp-cluster-management/charts/
+      version: 0.1.0
+    - name: compliance
+      repository: https://richmitch.github.io/ocp-cluster-management/charts/
+      version: 0.1.1
+    description: Day 2 configuration of a cluster
+    digest: 65edf9371796c919fc84672d8e493b5cf55ebed9bd0fae4af4ab724801a8947b
+    maintainers:
+    - name: richmitch
+    name: cluster
+    type: application
+    urls:
+    - https://richmitch.github.io/ocp-cluster-management/charts/cluster-0.0.1.tgz
+    version: 0.0.1
   compliance:
   - apiVersion: v2
-    created: "2023-02-10T10:29:33.244643+11:00"
+    created: "2023-02-10T10:32:11.503186+11:00"
     dependencies:
     - name: operator
       repository: https://richmitch.github.io/ocp-cluster-management/charts/
@@ -18,7 +43,7 @@ entries:
     version: 0.1.1
   gitops:
   - apiVersion: v2
-    created: "2023-02-10T10:29:33.246039+11:00"
+    created: "2023-02-10T10:32:11.504103+11:00"
     dependencies:
     - name: operator
       repository: https://richmitch.github.io/ocp-cluster-management/charts/
@@ -34,7 +59,7 @@ entries:
     version: 0.1.0
   nfd:
   - apiVersion: v2
-    created: "2023-02-10T10:29:33.250454+11:00"
+    created: "2023-02-10T10:32:11.505071+11:00"
     dependencies:
     - name: operator
       repository: https://richmitch.github.io/ocp-cluster-management/charts/
@@ -50,7 +75,7 @@ entries:
     version: 0.3.0
   nmstate:
   - apiVersion: v2
-    created: "2023-02-10T10:29:33.252088+11:00"
+    created: "2023-02-10T10:32:11.505928+11:00"
     dependencies:
     - name: operator
       repository: https://richmitch.github.io/ocp-cluster-management/charts/
@@ -67,7 +92,7 @@ entries:
   operator:
   - apiVersion: v2
     appVersion: latest
-    created: "2023-02-10T10:29:33.252482+11:00"
+    created: "2023-02-10T10:32:11.506841+11:00"
     description: A library Helm chart for OpenShift Operator installation
     digest: d61b392e26714fb1fc9d0c4987f24d895ae0735f458e946faec021f90462b2bb
     home: https://github.com/richmitch/ocp-cluster-management/charts
@@ -80,7 +105,7 @@ entries:
     version: 0.2.1
   operatorhub:
   - apiVersion: v2
-    created: "2023-02-10T10:29:33.253414+11:00"
+    created: "2023-02-10T10:32:11.509143+11:00"
     dependencies:
     - name: operator
       repository: https://richmitch.github.io/ocp-cluster-management/charts/
@@ -94,4 +119,4 @@ entries:
     urls:
     - https://richmitch.github.io/ocp-cluster-management/charts/operatorhub-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-10T10:29:33.243412+11:00"
+generated: "2023-02-10T10:32:11.499843+11:00"
