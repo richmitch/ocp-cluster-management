@@ -1,0 +1,13 @@
+operators:
+  - name: nmstate
+    namespace:
+      create: true
+      name: openshift-nmstate
+    subscription:
+      channel: stable
+      approval: Automatic
+      operatorName: kubernetes-nmstate-operator
+      sourceName: redhat-operators
+      sourceNamespace: openshift-marketplace
+    operatorgroup:
+      create: true
