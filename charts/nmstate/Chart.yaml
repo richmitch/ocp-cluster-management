@@ -1,5 +1,5 @@
 apiVersion: v2
-name: nfd
+name: nmstate
 description: Installs the Kubernetes NMState Operator
 type: application
 version: 0.1.0
