@@ -7,5 +7,5 @@ maintainers:
   - name: richmitch
 dependencies:
 - name: operator
-  version: 0.2.0
+  version: 0.2.1
   repository: https://richmitch.github.io/ocp-cluster-management/charts/

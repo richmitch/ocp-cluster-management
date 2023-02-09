@@ -10,7 +10,7 @@ metadata:
   name: {{ $op.name }}
   namespace: {{ $op.namespace.name }}
 spec:
-  channel: {{ $sub.channel }} 
+  channel: {{ $sub.channel | squote }} 
   installPlanApproval: {{ $sub.approval | default "Automatic" }}
   name: {{ $sub.operatorName }}
   source: {{ $sub.sourceName | default "redhat-operators" }}
