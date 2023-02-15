@@ -13,5 +13,6 @@ spec:
     repoURL: https://richmitch.github.io/ocp-cluster-management/charts/
     targetRevision: 0.3.0
   syncPolicy:
+    automated: {}
     syncOptions:
     - CreateNamespace=true
