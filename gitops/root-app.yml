@@ -9,6 +9,6 @@ spec:
     server: 'https://kubernetes.default.svc' 
   project: day-0
   source:
-    path: apps
-    repoURL: https://github.com/richmitch/ocp-cluster-management/gitops 
+    path: gitops/apps
+    repoURL: https://github.com/richmitch/ocp-cluster-management/
     targetRevision: HEAD
