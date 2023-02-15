@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-app
+  namespace: gitops-apps
+spec:
+  destination:
+    namespace: gitops-apps
+    server: 'https://kubernetes.default.svc' 
+  project: day-0
+  source:
+    path: apps
+    repoURL: https://github.com/richmitch/ocp-cluster-management/gitops 
+    targetRevision: HEAD

@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nfd-operator
+  namespace: gitops-apps
+spec:
+  destination:
+    namespace: openshift-nfd
+    server: https://kubernetes.default.svc
+  project: day-0
+  source:
+    chart: nfd
+    repoURL: https://richmitch.github.io/ocp-cluster-management/charts/
+    targetRevision: 0.3.0
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
