@@ -12,3 +12,5 @@ spec:
     path: gitops/apps
     repoURL: https://github.com/richmitch/ocp-cluster-management/
     targetRevision: HEAD
+  syncPolicy:
+    automated: {}
