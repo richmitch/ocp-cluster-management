@@ -7,7 +7,7 @@ metadata:
     open-cluster-management.io/user-group: c3lzdGVtOnNlcnZpY2VhY2NvdW50cyxzeXN0ZW06c2VydmljZWFjY291bnRzOm9wZW4tY2x1c3Rlci1tYW5hZ2VtZW50LHN5c3RlbTphdXRoZW50aWNhdGVk
     open-cluster-management.io/user-identity: c3lzdGVtOnNlcnZpY2VhY2NvdW50Om9wZW4tY2x1c3Rlci1tYW5hZ2VtZW50Om11bHRpY2x1c3Rlci1hcHBsaWNhdGlvbnM=      
   name: nfd-operator
-  namespace: applications  
+  namespace: platform-applications  
 spec:
   componentKinds:   
   - group: apps.open-cluster-management.io
@@ -34,7 +34,7 @@ metadata:
    app: nfd-operator
    app.kubernetes.io/part-of: nfd-operator
  name: nfd-operator-subscription-1     
- namespace: applications
+ namespace: platform-applications
 spec:    
  channel: ggithubcom-richmitch-ocp-cluster-management-ns/ggithubcom-richmitch-ocp-cluster-management 
  placement:   
@@ -51,7 +51,7 @@ metadata:
  labels:     
    app: nfd-operator  
  name: nfd-operator-placement-1
- namespace: applications     
+ namespace: platform-applications     
 spec:
  clusterSelector:    
    matchLabels:      
