@@ -3,7 +3,7 @@ kind: Kustomization
 
 namespace: policies
 
-bases: 
+resources: 
   - ../../base
 
 resources:
