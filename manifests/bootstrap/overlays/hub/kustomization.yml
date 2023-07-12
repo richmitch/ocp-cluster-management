@@ -1,0 +1,8 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: openshift-operators
+
+bases:
+  - ../../base
+  - ../../../operators/acm/overlays/release-2.8
