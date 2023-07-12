@@ -3,7 +3,7 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/refresh: normal
-  name: hub-app
+  name: openshift-pipelines-operator
   namespace: openshift-gitops
 spec:
   destination:
@@ -11,11 +11,9 @@ spec:
     server: https://kubernetes.default.svc
   project: gitops-hub
   source:
-    path: gitops/hub
+    path: manifests/operators/pipelines/overlays/latest
     repoURL: https://github.com/richmitch/ocp-cluster-management/
     targetRevision: HEAD
   syncPolicy:
-    automated:
-      selfHeal: true
     syncOptions:
     - CreateNamespace=true
