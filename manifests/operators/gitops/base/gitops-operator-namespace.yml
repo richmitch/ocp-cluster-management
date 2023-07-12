@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: "Project for OpenShift operators that do not require a specific namespace"
+    openshift.io/display-name: "OpenShift Operators"  
+  name: openshift-operators
