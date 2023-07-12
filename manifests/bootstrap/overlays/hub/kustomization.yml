@@ -5,3 +5,5 @@ resources:
   - ../../base
   - ../../../operators/acm/overlays/release-2.8
   - ../../../operators/gitops/overlays/gitops-1.9
+  - gitops-hub-namespace.yml  
+  - gitops-hub-application.yml

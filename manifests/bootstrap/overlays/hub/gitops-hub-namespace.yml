@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: "Project for GitOps Applications used by the Hub cluster"
+    openshift.io/display-name: "GitOps Hub"  
+  name: gitops-hub
